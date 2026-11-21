@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <meta name="theme-color" content="#111318">
+  <meta name="description" content="Convert one or multiple PNG images to JPG in your browser with adjustable quality.">
+  <title>PNG to JPG Converter – Pixel Tool Box</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="tool-page">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Pixel Tool Box home">
+      <span class="brand-mark" aria-hidden="true">▦</span>
+      <span>Pixel Tool Box</span>
+    </a>
+    <div class="app-header-right">
+      <span class="app-label">APP</span>
+      <a class="home-link" href="index.html">← All tools</a>
+    </div>
+  </header>
+
+  <main class="tool-main">
+    <header class="app-title">
+      <h1>PNG to JPG Converter</h1>
+      <p class="subtitle">Convert one or multiple PNG images into JPG files, right in your browser.</p>
+    </header>
+
+    <section class="panel" aria-label="Choose PNG images">
+      <div class="drop-zone converter-drop-zone" id="dropZone">
+        <div class="upload-icon" aria-hidden="true">▤</div>
+        <strong>Drop your PNG images here</strong>
+        <span class="muted">or</span>
+        <label class="file-button" for="fileInput">Choose PNG files</label>
+        <span class="muted">You can select multiple PNGs at once.</span>
+      </div>
+      <input id="fileInput" type="file" accept="image/png,.png" multiple>
+      <div class="file-meta" id="fileMeta">
+        <span class="file-name" id="fileSummary"></span>
+        <button class="secondary" id="clearButton" type="button">Clear files</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Conversion settings</h2>
+      </div>
+      <div class="converter-controls">
+        <div class="control-group">
+          <div class="quality-line">
+            <label for="quality">JPG quality</label>
+            <strong id="qualityValue">90%</strong>
+          </div>
+          <input id="quality" type="range" min="10" max="100" value="90" step="1">
+          <div class="range-labels"><span>Smaller file</span><span>Higher quality</span></div>
+        </div>
+        <div class="control-group">
+          <label for="backgroundColor">Background for transparent pixels</label>
+          <input id="backgroundColor" type="color" value="#ffffff">
+        </div>
+      </div>
+      <p class="hint">JPG does not support transparency. Transparent parts of your PNGs will be filled with the background colour above.</p>
+      <div class="action-row">
+        <span class="muted" id="selectionCount">No files selected</span>
+        <button id="convertButton" type="button" disabled>Convert to JPG</button>
+      </div>
+      <p class="status-message" id="statusMessage" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Converted files</h2>
+        <span class="muted" id="resultCount">0 files</span>
+      </div>
+      <div class="empty-preview" id="emptyResults">Your converted JPG files will appear here.</div>
+      <div class="file-list" id="fileList"></div>
+    </section>
+  </main>
+
+  <script src="png-to-jpg.js" defer></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .catch((error) => console.error("Service worker registration failed:", error));
+      });
+    }
+  </script>
+</body>
+</html>

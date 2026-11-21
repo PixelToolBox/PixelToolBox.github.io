@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <meta name="theme-color" content="#111318">
 <title>Pixel Rescaler – Pixel Tool Box</title>
 <meta name="description" content="Free online pixel art resizer. Scale pixel art with crisp nearest-neighbour interpolation.">
   <link rel="stylesheet" href="style.css">
@@ -80,9 +83,17 @@
     </div>
   </section>
 </main>
-  <footer>A project by <a href="https://voxelforgestudios.com" target="_blank">Voxel Forge Studios</a></footer>
 
   <script src="script.js" defer></script>
 
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .catch((error) => console.error("Service worker registration failed:", error));
+      });
+    }
+  </script>
 </body>
 </html>
