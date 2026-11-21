@@ -141,7 +141,7 @@
     .tool-count { color: var(--muted); font-size: .85rem; }
     .tool-card {
       display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 20px;
-      padding: 24px; border: 1px solid var(--border); border-radius: 18px;
+      padding: 24px; border: 1px solid var(--border); border-radius: 18px; margin-bottom:20px;
       background: linear-gradient(145deg, rgba(35,41,54,.92), rgba(27,31,39,.96));
       text-decoration: none; transition: border-color .18s, transform .18s, background .18s;
     }
