@@ -6,8 +6,8 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <meta name="theme-color" content="#111318">
-  <meta name="description" content="Convert one or multiple PNG images to JPG in your browser with adjustable quality.">
-  <title>PNG to JPG Converter – Pixel Tool Box</title>
+  <meta name="description" content="Convert PNG, JPG and WebP images in your browser, including batch conversion and quality controls.">
+  <title>Image Converter – Pixel Tool Box</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="tool-page">
@@ -24,19 +24,19 @@
 
   <main class="tool-main">
     <header class="app-title">
-      <h1>PNG to JPG Converter</h1>
-      <p class="subtitle">Convert one or multiple PNG images into JPG files, right in your browser.</p>
+      <h1>Image Converter</h1>
+      <p class="subtitle">Convert PNG, JPG and WebP images between formats, right in your browser.</p>
     </header>
 
-    <section class="panel" aria-label="Choose PNG images">
+    <section class="panel" aria-label="Choose images">
       <div class="drop-zone converter-drop-zone" id="dropZone">
         <div class="upload-icon" aria-hidden="true">▤</div>
-        <strong>Drop your PNG images here</strong>
+        <strong>Drop your images here</strong>
         <span class="muted">or</span>
-        <label class="file-button" for="fileInput">Choose PNG files</label>
-        <span class="muted">You can select multiple PNGs at once.</span>
+        <label class="file-button" for="fileInput">Choose image files</label>
+        <span class="muted">PNG, JPG and WebP · You can select multiple files.</span>
       </div>
-      <input id="fileInput" type="file" accept="image/png,.png" multiple>
+      <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" multiple>
       <div class="file-meta" id="fileMeta">
         <span class="file-name" id="fileSummary"></span>
         <button class="secondary" id="clearButton" type="button">Clear files</button>
@@ -44,37 +44,37 @@
     </section>
 
     <section class="panel">
-      <div class="section-heading">
-        <h2>Conversion settings</h2>
-      </div>
-      <div class="converter-controls">
+      <div class="section-heading"><h2>Conversion settings</h2></div>
+      <div class="converter-controls converter-controls-three">
         <div class="control-group">
-          <div class="quality-line">
-            <label for="quality">JPG quality</label>
-            <strong id="qualityValue">90%</strong>
-          </div>
+          <label for="outputFormat">Convert to</label>
+          <select id="outputFormat">
+            <option value="image/png">PNG</option>
+            <option value="image/jpeg" selected>JPG</option>
+            <option value="image/webp">WebP</option>
+          </select>
+        </div>
+        <div class="control-group" id="qualityGroup">
+          <div class="quality-line"><label for="quality" id="qualityLabel">JPG quality</label><strong id="qualityValue">90%</strong></div>
           <input id="quality" type="range" min="10" max="100" value="90" step="1">
           <div class="range-labels"><span>Smaller file</span><span>Higher quality</span></div>
         </div>
-        <div class="control-group">
-          <label for="backgroundColor">Background for transparent pixels</label>
+        <div class="control-group" id="backgroundGroup">
+          <label for="backgroundColor">Background for transparency</label>
           <input id="backgroundColor" type="color" value="#ffffff">
         </div>
       </div>
-      <p class="hint">JPG does not support transparency. Transparent parts of your PNGs will be filled with the background colour above.</p>
+      <p class="hint" id="formatHint">JPG does not support transparency. Transparent areas will be filled with the background colour above.</p>
       <div class="action-row">
         <span class="muted" id="selectionCount">No files selected</span>
-        <button id="convertButton" type="button" disabled>Convert to JPG</button>
+        <button id="convertButton" type="button" disabled>Convert images</button>
       </div>
       <p class="status-message" id="statusMessage" role="status" aria-live="polite"></p>
     </section>
 
     <section class="panel">
-      <div class="section-heading">
-        <h2>Converted files</h2>
-        <span class="muted" id="resultCount">0 files</span>
-      </div>
-      <div class="empty-preview" id="emptyResults">Your converted JPG files will appear here.</div>
+      <div class="section-heading"><h2>Converted files</h2><span class="muted" id="resultCount">0 files</span></div>
+      <div class="empty-preview" id="emptyResults">Your converted images will appear here.</div>
       <div class="file-list" id="fileList"></div>
     </section>
   </main>
@@ -82,7 +82,6 @@
   <footer>A project by <a href="https://voxelforgestudios.com" target="_blank">Voxel Forge Studios</a></footer>
 
   <script src="png-to-jpg.js" defer></script>
-
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
